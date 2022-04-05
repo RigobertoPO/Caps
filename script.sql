@@ -31,6 +31,7 @@ CREATE TABLE Productos(
     Precio decimal(6,2),
     Existencia int,
     IdTipoProducto int,
+    Imagen varchar(120),
     PRIMARY KEY (Id),
     FOREIGN KEY (IdTipoProducto) REFERENCES TiposProductos(Id)
 );
