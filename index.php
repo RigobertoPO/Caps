@@ -27,7 +27,7 @@
                     <label for="usuario">correo@gmail.com</label> 
                     <a style="color: red;text-decoration: none; " href="contacto.php">Cerrar sesión</a>                   
                 </div>     -->
-                <a class="nav-link" style="color: gray;" href="contacto.php">Iniciar sesión</a>  
+                <a class="nav-link" style="color: gray;" href="login.php">Iniciar sesión</a>  
             </li>           
         </ul>
         
