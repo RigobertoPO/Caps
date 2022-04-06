@@ -62,28 +62,38 @@
     </header>
     <section>
         <div class="container">
-        <?php
-            include 'conexion.php';
-            $conecta=new Conexion();
-            $sql = "SELECT * FROM Productos"; 
-            $query = $conecta -> prepare($sql); 
-            $query -> execute(); 
-            $results = $query -> fetchAll(PDO::FETCH_OBJ); 
-            if($query -> rowCount() > 0)   { 
-                foreach($results as $result) { 
-                    ?>
-                    <div class="card" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $result -> Modelo ?></h5>
-                            <p class="card-text"><?php echo $result -> Nombre ?></p>
-                            <a href="#" class="btn btn-primary">Comprar</a>
-                        </div>
-                        </div>
-                    <?php             
-                }
-            }
-        ?>
+            <div class="row row-cols-5">
+                <?php
+                    include 'conexion.php';
+                    $conecta=new Conexion();
+                    $sql = "SELECT * FROM Productos"; 
+                    $query = $conecta -> prepare($sql); 
+                    $query -> execute(); 
+                    $results = $query -> fetchAll(PDO::FETCH_OBJ); 
+                    if($query -> rowCount() > 0)   { 
+                        foreach($results as $result) { 
+                            ?>
+                            <div class="card" style="width: 18rem;">
+                                <img src="<?php 
+                                if (strlen($result -> Imagen) > 0){
+                                    print $result -> Imagen;
+                                } 
+                                else 
+                                {
+                                    echo "img/catalogo/SinFoto.jpg";
+                                }
+                                ?>" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $result -> Modelo ?></h5>
+                                    <p class="card-text"><?php echo $result -> Nombre ?></p>
+                                    <a href="#" class="btn btn-primary">Comprar</a>
+                                </div>
+                                </div>
+                            <?php             
+                        }
+                    }
+                ?>
+            </div>
         </div>
     </section>
     <footer>

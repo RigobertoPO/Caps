@@ -48,15 +48,15 @@ class Producto {
      public function setIdTipoProducto($idTipoProducto) {
         $this->IdTipoProducto = $idTipoProducto;
      }
-     public function setIdTipoProducto($imagen) {
+     public function setImagen($imagen) {
         $this->Imagen = $imagen;
      }
 
      public function __construct($nombre, $modelo, $precio, $existencia,$idTipoProducto,$imagen, $id=null) {
-        $this->Nombre = $matricula;
-        $this->Modelo = $nombreCompleto;
-        $this->Precio = $correo;
-        $this->Existencia = $edad;
+        $this->Nombre = $nombre;
+        $this->Modelo = $modelo;
+        $this->Precio = $precio;
+        $this->Existencia = $existencia;
         $this->IdTipoProducto = $idTipoProducto;
         $this->Imagen = $imagen;
      }
