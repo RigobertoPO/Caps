@@ -84,6 +84,7 @@
                                 }
                                 ?>" class="card-img-top" alt="...">
                                 <div class="card-body">
+                                    
                                     <h5 class="card-title"><?php echo $result -> Modelo ?></h5>
                                     <p class="card-text"><?php echo $result -> Nombre ?></p>
                                     <a href="#" class="btn btn-primary">Comprar</a>
