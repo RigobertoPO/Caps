@@ -39,11 +39,11 @@
         <h3>Iniciar sesión </h3>
         </div>
         <div class="card-body mt-3">
-        <form name="login" action="" method="post">
+        <form name="login" action="Usuarios/validarUsuario.php" method="post">
         <div class="form-group mt-3">
             <label>Correo</label>
             <input type="text" class="form-control text-center p-2"
-            placeholder="Usuario" name="username">
+            placeholder="Usuario" name="correo">
             </div>
             <div class="form-group mt-3">
             <label>Password</label>

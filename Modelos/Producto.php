@@ -1,5 +1,4 @@
 <?php
-require_once '../Conexion.php';
 class Producto {
     private $id;
     private $nombre;
@@ -52,13 +51,23 @@ class Producto {
         $this->Imagen = $imagen;
      }
 
-     public function __construct($nombre, $modelo, $precio, $existencia,$idTipoProducto,$imagen, $id=null) {
-        $this->Nombre = $nombre;
-        $this->Modelo = $modelo;
-        $this->Precio = $precio;
-        $this->Existencia = $existencia;
-        $this->IdTipoProducto = $idTipoProducto;
-        $this->Imagen = $imagen;
-     }
+   //   public function __construct($nombre, $modelo, $precio, $existencia,$idTipoProducto,$imagen, $id=null) {
+   //      $this->Nombre = $nombre;
+   //      $this->Modelo = $modelo;
+   //      $this->Precio = $precio;
+   //      $this->Existencia = $existencia;
+   //      $this->IdTipoProducto = $idTipoProducto;
+   //      $this->Imagen = $imagen;
+   //   }
+     public function ObtenerProductoId($id) //un usuario
+    {
+        include '../conexion.php';
+        $conexion=new Conexion();
+        $consulta=$conexion->prepare("SELECT * FROM Productos WHERE Id=:id");
+        $consulta->bindParam(":id",$id,PDO::PARAM_STR);
+        $consulta->execute();
+        $consulta->setFetchMode(PDO::FETCH_ASSOC);
+        return $consulta->fetchAll();
+    }
 }
 ?>

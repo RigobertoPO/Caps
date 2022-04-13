@@ -38,35 +38,34 @@
         <h3>Iniciar sesión </h3>
         </div>
         <div class="card-body mt-3">
-        <form name="login" action="" method="post">
+        <form name="login" action="Usuarios/insertarUsuario.php" method="post">
             <div class="form-group mt-2">
                 <label>Nombre</label>
                 <input type="text" class="form-control text-center p-2"
-                placeholder="Usuario" name="username">
+                placeholder="Nombre" name="nombre">
             </div>
             <div class="form-group mt-2">
                 <label>Apellido paterno</label>
                 <input type="text" class="form-control text-center p-2"
-                placeholder="Usuario" name="username">
+                placeholder="Paterno" name="paterno">
             </div>
             <div class="form-group mt-2">
                 <label>Apellido materno</label>
                 <input type="text" class="form-control text-center p-2"
-                placeholder="Usuario" name="username">
+                placeholder="Materno" name="materno">
             </div>
             <div class="form-group mt-2">
                 <label>Correo</label>
                 <input type="text" class="form-control text-center p-2"
-                placeholder="Usuario" name="username">
+                placeholder="Correo" name="correo">
             </div>
             <div class="form-group mt-2">
             <label>Password</label>
             <input type="password" class="form-control text-center p-2"
             placeholder="Contraseña" name="password">
             </div>
-            <div class="text-center">
-            <a href="registrar.php">REGISTRARME</a>
-            <input type="submit" value="Acceder"
+            <div class="text-center">          
+            <input type="submit" value="Registrar"
             class="btn btn-primary mt-3 w-100 p-2" name="login-btn">
             </div>
         </form>        

@@ -1,3 +1,16 @@
+<?php
+session_start();
+if(isset($_SESSION['usuario']))
+{
+	$usuarioSesion=$_SESSION['usuario'];
+	$tipoSesion=$_SESSION['tipo'];
+}
+else
+{
+	$usuarioSesion='';
+	$tipoSesion='';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,15 +32,50 @@
             <li class="nav-item">
                 <a class="nav-link" href="somos.php">¿Quiénes somos?</a>
             </li>
+            <?php
+                if($usuarioSesion<>'' && $tipoSesion==2)
+                {
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Carrito/carrito.php">Mi Carrito</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Compras/compras.php">Mis Compras</a>
+                    </li>
+                    <?php
+                }
+                if($usuarioSesion<>'' && $tipoSesion==1)
+                {
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Productos/catalogo.php">Catálogo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Pedidos/pedido.php">Pedidos</a>
+                    </li>
+                    <?php
+                }
+            ?>
             <li class="nav-item">
                 <a class="nav-link" href="contacto.php">Contacto</a>
             </li> 
             <li class="nav-item" >
-                <!-- <div class="btn-group-vertical">  
-                    <label for="usuario">correo@gmail.com</label> 
-                    <a style="color: red;text-decoration: none; " href="contacto.php">Cerrar sesión</a>                   
-                </div>     -->
-                <a class="nav-link" style="color: gray;" href="login.php">Iniciar sesión</a>  
+                <?php
+					if($usuarioSesion<>'')
+					{
+						?>
+                        <div class="btn-group-vertical">  
+                            <label for="usuario"><?php echo $usuarioSesion; ?></label> 
+                            <a style="color: red;text-decoration: none; " href="logout.php">Cerrar sesión</a>                   
+                        </div>    
+						<?php
+					}
+                    else{
+                        ?>
+                            <a class="nav-link" style="color: gray;" href="login.php">Iniciar sesión</a>  
+                        <?php
+                    }
+				?>  
             </li>           
         </ul>
         
@@ -87,7 +135,7 @@
                                     
                                     <h5 class="card-title"><?php echo $result -> Modelo ?></h5>
                                     <p class="card-text"><?php echo $result -> Nombre ?></p>
-                                    <a href="#" class="btn btn-primary">Comprar</a>
+                                    <a href="Productos/detalle.php?id=<?PHP echo $result -> Id?>" class="btn btn-primary">Comprar</a>
                                 </div>
                                 </div>
                             <?php             
