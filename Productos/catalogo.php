@@ -21,6 +21,21 @@ else
     <script src="../js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
     <title>Gorras</title>
+    <script type="text/javascript">
+			function editar_id(id){
+				if(confirm('¿Desea modificar?'))
+				{
+					window.location.href='editarProducto.php?idEditar='+id;
+				}
+			}
+			function eliminar_id(id){
+				if(confirm('¿Desea eliminar?'))
+				{
+					window.location.href='eliminarProducto.php?idEliminar='+id;
+				}
+			}
+
+		</script>
 </head>
 <body>
     <header>
@@ -83,6 +98,42 @@ else
     <section>
         <div class="container">
             <h1>Catálogo</h1>
+            <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Modelo</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Existencia</th>
+                <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    require_once '../Modelos/Producto.php';
+                    $producto = new Producto();
+                    $resultado=$producto->ObtenerProductos();
+                    if (count($resultado) > 0) {
+                    foreach ($resultado as $registro) {
+                        ?>
+                            <tr>
+                            <th scope="row"><?php echo $registro['Id'] ?></th>
+                            <td><?php echo $registro['Nombre']?></td>
+                            <td><?php echo $registro['Modelo'] ?></td>
+                            <td><?php echo $registro['Precio'] ?></td>
+                            <td><?php echo $registro['Existencia'] ?></td>
+                            <td>
+                                <a href="javascript:editar_id('<?php echo $registro["Id"];?>')"><img src="../img/Editar.png" alt=""> </a>
+								<a href="javascript:eliminar_id('<?php echo $registro["Id"];?>')"><img src="../img/Cancelar.png" alt=""> </a>
+                            </td>
+                            </tr>
+                        <?php
+                    }
+                    }
+                ?>    
+            </tbody>
+            </table>                       
         </div>
     </section>
     <footer>

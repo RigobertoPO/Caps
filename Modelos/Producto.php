@@ -59,7 +59,16 @@ class Producto {
    //      $this->IdTipoProducto = $idTipoProducto;
    //      $this->Imagen = $imagen;
    //   }
-     public function ObtenerProductoId($id) //un usuario
+   public function ObtenerProductos() //un usuario
+    {
+        include '../conexion.php';
+        $conexion=new Conexion();
+        $consulta=$conexion->prepare("SELECT * FROM Productos");
+        $consulta->execute();
+        $consulta->setFetchMode(PDO::FETCH_ASSOC);
+        return $consulta->fetchAll();
+    }
+    public function ObtenerProductoId($id) //un usuario
     {
         include '../conexion.php';
         $conexion=new Conexion();
@@ -68,6 +77,15 @@ class Producto {
         $consulta->execute();
         $consulta->setFetchMode(PDO::FETCH_ASSOC);
         return $consulta->fetchAll();
+    }
+    public function EliminarProducto($id) //un usuario
+    {
+        include '../conexion.php';
+        $conexion=new Conexion();
+        $consulta=$conexion->prepare("DELETE FROM Productos WHERE Id=:id");
+        $consulta->bindParam(":id",$id,PDO::PARAM_STR);
+        $consulta->execute();
+        return true;
     }
 }
 ?>
