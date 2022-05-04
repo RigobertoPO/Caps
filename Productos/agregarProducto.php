@@ -21,23 +21,6 @@ else
     <script src="../js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
     <title>Gorras</title>
-    <script type="text/javascript">
-			function editar_id(id){
-				if(confirm('¿Desea modificar?'))
-				{
-					window.location.href='editarProducto.php?idEditar='+id;
-				}
-			}
-			function eliminar_id(id){
-				if(confirm('¿Desea eliminar?'))
-				{
-					window.location.href='eliminarProducto.php?idEliminar='+id;
-				}
-			}
-            function cargarFoto_id(id){
-					window.location.href='imagenProducto.php?id='+id;
-			}
-		</script>
 </head>
 <body>
     <header>
@@ -100,44 +83,51 @@ else
     <section>
         <div class="container">
             <h1>Catálogo</h1>
-            <a href="agregarProducto.php">Nuevo</a>
-            <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Modelo</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Existencia</th>
-                <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    require_once '../Modelos/Producto.php';
-                    $producto = new Producto();
-                    $resultado=$producto->ObtenerProductos();
-                    if (count($resultado) > 0) {
-                    foreach ($resultado as $registro) {
-                        ?>
-                            <tr>
-                            <th scope="row"><?php echo $registro['Id'] ?></th>
-                            <td><?php echo $registro['Nombre']?></td>
-                            <td><?php echo $registro['Modelo'] ?></td>
-                            <td><?php echo $registro['Precio'] ?></td>
-                            <td><?php echo $registro['Existencia'] ?></td>
-                            <td>
-                                <a href="javascript:editar_id('<?php echo $registro["Id"];?>')"><img src="../img/Editar.png" alt=""> </a>
-								<a href="javascript:eliminar_id('<?php echo $registro["Id"];?>')"><img src="../img/Cancelar.png" alt=""> </a>
-                                <a href="javascript:cargarFoto_id('<?php echo $registro["Id"];?>')"><img src="../img/Foto.png" alt=""> </a>
-                            </td>
-                            </tr>
-                        <?php
-                    }
-                    }
-                ?>    
-            </tbody>
-            </table>                       
+            <div class="card-body mt-3">
+            <form name="login" action="insertarProducto.php" method="post">
+                <div class="form-group mt-2">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control text-center p-2"
+                    placeholder="Nombre" name="nombre">
+                </div>
+                <div class="form-group mt-2">
+                    <label>Modelo</label>
+                    <input type="text" class="form-control text-center p-2"
+                    placeholder="Modelo" name="modelo">
+                </div>
+                <div class="form-group mt-2">
+                    <label>Precio</label>
+                    <input type="text" class="form-control text-center p-2"
+                    placeholder="Precio" name="precio">
+                </div>
+                <div class="form-group mt-2">
+                    <label>Existencia</label>
+                    <input type="text" class="form-control text-center p-2"
+                    placeholder="Existencia" name="existencia">
+                </div>
+                <div class="form-group mt-2">
+                <label>Tipo de producto</label>
+                <select name="tipoProducto" class="form-control text-center p-2">                   
+                    <option value="" selected="selected">Seleccione</option>
+                    <?php
+                     require_once '../Modelos/Producto.php';
+                     $producto = new Producto();
+                     $resultado=$producto->ObtenerTiposProductos();
+
+                     foreach ($resultado as $registro)  { 
+                    ?>
+                    <option value="<?php echo $registro["Id"]; ?>"><?php echo $registro["Descripcion"]; ?></option>
+                    <?php 
+                    }	
+                    ?>
+                    </select>
+                </div>
+                <div class="text-center">          
+                <input type="submit" value="Registrar"
+                class="btn btn-primary mt-3 w-100 p-2" name="login-btn">
+                </div>
+            </form>        
+        </div>                  
         </div>
     </section>
     <footer>

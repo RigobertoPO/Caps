@@ -87,5 +87,41 @@ class Producto {
         $consulta->execute();
         return true;
     }
+    public function InsertarProducto($nombre,$modelo,$precio,$existencia,$tipoProducto){
+      include '../conexion.php';
+      $conexion=new Conexion();
+      $consulta=$conexion->prepare("INSERT INTO productos(Nombre,Modelo,Precio,Existencia, IdTipoProducto,Imagen)
+      VALUES(:nombre,:modelo,:precio,:existencia,:tipoProducto,'')");
+       $consulta->bindParam(":nombre",$nombre,PDO::PARAM_STR);
+       $consulta->bindParam(":modelo",$modelo,PDO::PARAM_STR);
+       $consulta->bindParam(":precio",$precio,PDO::PARAM_STR);
+       $consulta->bindParam(":existencia",$existencia,PDO::PARAM_STR);
+       $consulta->bindParam(":tipoProducto",$tipoProducto,PDO::PARAM_INT);
+       $consulta->execute();
+      return true;
+    }
+    public function ModificarProducto($nombre,$modelo,$precio,$existencia,$tipoProducto){
+      include '../conexion.php';
+      $conexion=new Conexion();
+
+      $consulta=$conexion->prepare("UPDATE productos SET Nombre=:nombre,Modelo=:modelo,Precio=:precio,Existencia=:existencia,IdTipoProducto=:tipoProducto
+                 WHERE Id=:id"); //: asociacion
+      $consulta->bindParam(":nombre",$nombre,PDO::PARAM_STR);
+      $consulta->bindParam(":modelo",$modelo,PDO::PARAM_STR);
+      $consulta->bindParam(":precio",$precio,PDO::PARAM_STR);
+      $consulta->bindParam(":existencia",$existencia,PDO::PARAM_STR);
+      $consulta->bindParam(":tipoProducto",$tipoProducto,PDO::PARAM_INT);
+      $consulta->execute();   
+      return true;
+    }
+    public function ObtenerTiposProductos() //un usuario
+    {
+        include '../conexion.php';
+        $conexion=new Conexion();
+        $consulta=$conexion->prepare("SELECT * FROM TiposProductos");
+        $consulta->execute();
+        $consulta->setFetchMode(PDO::FETCH_ASSOC);
+        return $consulta->fetchAll();
+    }
 }
 ?>

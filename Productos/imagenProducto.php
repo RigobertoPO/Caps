@@ -4,12 +4,28 @@ if(isset($_SESSION['usuario']))
 {
 	$usuarioSesion=$_SESSION['usuario'];
 	$tipoSesion=$_SESSION['tipo'];
+    $idProduto=$_GET['id'];
+    if(isset($_GET['id'])){
+        require_once '../Modelos/Producto.php';
+        $producto = new Producto();
+        $resultado=$producto->ObtenerProductoId($idProduto);
+        if (count($resultado) > 0) {
+            foreach ($resultado as $registro) {
+                $nombre=$registro['Nombre'];
+                $modelo=$registro['Modelo'];
+            }
+        } else {
+            header("Location: catalogo.php");
+            exit();
+        }
+    }
 }
 else
 {
 	$usuarioSesion='';
 	$tipoSesion='';
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,23 +37,7 @@ else
     <script src="../js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
     <title>Gorras</title>
-    <script type="text/javascript">
-			function editar_id(id){
-				if(confirm('¿Desea modificar?'))
-				{
-					window.location.href='editarProducto.php?idEditar='+id;
-				}
-			}
-			function eliminar_id(id){
-				if(confirm('¿Desea eliminar?'))
-				{
-					window.location.href='eliminarProducto.php?idEliminar='+id;
-				}
-			}
-            function cargarFoto_id(id){
-					window.location.href='imagenProducto.php?id='+id;
-			}
-		</script>
+   
 </head>
 <body>
     <header>
@@ -99,45 +99,24 @@ else
     </header>
     <section>
         <div class="container">
-            <h1>Catálogo</h1>
-            <a href="agregarProducto.php">Nuevo</a>
-            <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Modelo</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Existencia</th>
-                <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    require_once '../Modelos/Producto.php';
-                    $producto = new Producto();
-                    $resultado=$producto->ObtenerProductos();
-                    if (count($resultado) > 0) {
-                    foreach ($resultado as $registro) {
-                        ?>
-                            <tr>
-                            <th scope="row"><?php echo $registro['Id'] ?></th>
-                            <td><?php echo $registro['Nombre']?></td>
-                            <td><?php echo $registro['Modelo'] ?></td>
-                            <td><?php echo $registro['Precio'] ?></td>
-                            <td><?php echo $registro['Existencia'] ?></td>
-                            <td>
-                                <a href="javascript:editar_id('<?php echo $registro["Id"];?>')"><img src="../img/Editar.png" alt=""> </a>
-								<a href="javascript:eliminar_id('<?php echo $registro["Id"];?>')"><img src="../img/Cancelar.png" alt=""> </a>
-                                <a href="javascript:cargarFoto_id('<?php echo $registro["Id"];?>')"><img src="../img/Foto.png" alt=""> </a>
-                            </td>
-                            </tr>
-                        <?php
-                    }
-                    }
-                ?>    
-            </tbody>
-            </table>                       
+            <h1><?php echo $nombre; ?></h1>
+            <div class="card-body mt-3">  
+            <form name="MiForm" id="MiForm" method="post" action="cargar.php" enctype="multipart/form-data">
+               <div class="form-group mt-2">
+                    <label>Id</label>
+                    <input type="text" class="form-control text-center p-2" value="<?php echo $idProduto;?>"
+                    placeholder="Nombre" name="nombre">
+                </div>
+                <h4 class="text-center">Seleccione imagen a cargar</h4>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Archivos</label>
+                    <div class="col-sm-8">
+                        <input type="file" class="form-control" id="image" name="image" multiple>
+                    </div>
+                    <button name="submit" class="btn btn-primary">Cargar Imagen</button>
+                </div>
+            </form>     
+        </div>                  
         </div>
     </section>
     <footer>
