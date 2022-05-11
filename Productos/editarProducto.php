@@ -16,7 +16,6 @@ if(isset($_SESSION['usuario']))
                 $precio=$registro['Precio'];
                 $existencia=$registro['Existencia'];
                 $idTipoProducto=$registro['IdTipoProducto'];
-                echo $nombre;
             }
         } else {
             header("Location: catalogo.php");
@@ -103,7 +102,7 @@ else
         <div class="container">
             <h1>Editar Producto</h1>
             <div class="card-body mt-3">
-            <form name="login" action="insertarProducto.php" method="post">
+            <form name="login" action="modificarProducto.php" method="post">
                 <div class="form-group mt-2">
                     <label>Id</label>
                     <input type="text" class="form-control text-center p-2" value="<?php echo $idProduto;?>"
@@ -131,7 +130,7 @@ else
                 </div>
                 <div class="form-group mt-2">
                 <label>Tipo de producto</label>
-                <select name="tipoProducto" class="form-control text-center p-2" value="<?php echo $idTipoProduto;?>">                   
+                <select name="tipoProducto" class="form-control text-center p-2" >                   
                     <option value="" selected="selected">Seleccione</option>
                     <?php
                      require_once '../Modelos/Producto.php';
@@ -147,7 +146,7 @@ else
                     </select>
                 </div>
                 <div class="text-center">          
-                <input type="submit" value="Registrar"
+                <input type="submit" value="Modificar"
                 class="btn btn-primary mt-3 w-100 p-2" name="login-btn">
                 </div>
             </form>        

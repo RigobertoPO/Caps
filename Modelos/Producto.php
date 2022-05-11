@@ -70,12 +70,14 @@ class Producto {
     }
     public function ObtenerProductoId($id) //un usuario
     {
-        include '../conexion.php';
+        include_once '../conexion.php';
         $conexion=new Conexion();
         $consulta=$conexion->prepare("SELECT * FROM Productos WHERE Id=:id");
         $consulta->bindParam(":id",$id,PDO::PARAM_STR);
         $consulta->execute();
         $consulta->setFetchMode(PDO::FETCH_ASSOC);
+        $conexion = null; // obligado para cerrar la conexión
+     
         return $consulta->fetchAll();
     }
     public function EliminarProducto($id) //un usuario
@@ -100,12 +102,13 @@ class Producto {
        $consulta->execute();
       return true;
     }
-    public function ModificarProducto($nombre,$modelo,$precio,$existencia,$tipoProducto){
+    public function ModificarProducto($id,$nombre,$modelo,$precio,$existencia,$tipoProducto){
       include '../conexion.php';
       $conexion=new Conexion();
 
       $consulta=$conexion->prepare("UPDATE productos SET Nombre=:nombre,Modelo=:modelo,Precio=:precio,Existencia=:existencia,IdTipoProducto=:tipoProducto
                  WHERE Id=:id"); //: asociacion
+      $consulta->bindParam(":id",$id,PDO::PARAM_STR);
       $consulta->bindParam(":nombre",$nombre,PDO::PARAM_STR);
       $consulta->bindParam(":modelo",$modelo,PDO::PARAM_STR);
       $consulta->bindParam(":precio",$precio,PDO::PARAM_STR);
@@ -116,12 +119,23 @@ class Producto {
     }
     public function ObtenerTiposProductos() //un usuario
     {
-        include '../conexion.php';
+        include_once '../conexion.php';
         $conexion=new Conexion();
         $consulta=$conexion->prepare("SELECT * FROM TiposProductos");
         $consulta->execute();
         $consulta->setFetchMode(PDO::FETCH_ASSOC);
         return $consulta->fetchAll();
+    }
+    public function ModificarImagen($id,$nombreImagen){
+      include '../conexion.php';
+      $conexion=new Conexion();
+
+      $consulta=$conexion->prepare("UPDATE productos SET Imagen=:nombreImagen
+                 WHERE Id=:id"); //: asociacion
+      $consulta->bindParam(":id",$id,PDO::PARAM_STR);
+      $consulta->bindParam(":nombreImagen",$nombreImagen,PDO::PARAM_STR);
+      $consulta->execute();   
+      return true;
     }
 }
 ?>

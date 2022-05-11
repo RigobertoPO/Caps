@@ -101,7 +101,7 @@ else
         <div class="container">
             <h1><?php echo $nombre; ?></h1>
             <div class="card-body mt-3">  
-            <form name="MiForm" id="MiForm" method="post" action="cargar.php" enctype="multipart/form-data">
+            <form name="MiForm" id="MiForm" method="post" action="cargarImagen.php" enctype="multipart/form-data">
                <div class="form-group mt-2">
                     <label>Id</label>
                     <input type="text" class="form-control text-center p-2" value="<?php echo $idProduto;?>"
@@ -111,7 +111,7 @@ else
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Archivos</label>
                     <div class="col-sm-8">
-                        <input type="file" class="form-control" id="image" name="image" multiple>
+                        <input type="file" class="form-control" id="imagen" name="imagen" multiple>
                     </div>
                     <button name="submit" class="btn btn-primary">Cargar Imagen</button>
                 </div>
