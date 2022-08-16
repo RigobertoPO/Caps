@@ -10,6 +10,7 @@ else
 	$usuarioSesion='';
 	$tipoSesion='';
 }
+//comentario
 ?>
 <!DOCTYPE html>
 <html lang="en">
